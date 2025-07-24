@@ -1,8 +1,8 @@
-import { aj } from "../configs/arject";
+import { aj } from "../config/arcjet.js";
 
 // Arcjet middleware for rate limiting, bot protection, and security
 
-export const arcjetMiddleware = async (req : any, res : any, next:any) => {
+export const arcjetMiddleware = async (req, res, next) => {
   try {
     const decision = await aj.protect(req, {
       requested: 1, // each request consumes 1 token
@@ -29,7 +29,7 @@ export const arcjetMiddleware = async (req : any, res : any, next:any) => {
     }
 
     // check for spoofed bots
-    if (decision.results.some((result :any) => result.reason.isBot() && result.reason.isSpoofed())) {
+    if (decision.results.some((result) => result.reason.isBot() && result.reason.isSpoofed())) {
       return res.status(403).json({
         error: "Spoofed bot detected",
         message: "Malicious bot activity detected.",
