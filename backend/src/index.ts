@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import { ENV } from "./configs/env";
 import connectDb from "./configs/db";
-import { clerkMiddleware, User } from "@clerk/express";
+import { clerkMiddleware } from "@clerk/express";
 import { arcjetMiddleware } from "./middleware/arcject.middleware";
 
 
@@ -12,6 +12,8 @@ import UserRoute from "./routes/user.route"
 import PostRoute from "./routes/post.route"
 import CommentRoute from "./routes/comment.route"
 import NotificationRoute from "./routes/notification.route"
+
+
 const app = express();
 
 app.use(express.json());
@@ -24,6 +26,9 @@ app.get("/", (req, res) => {
   res.send("Hello from the backend!");
 });
 
+app.get("/health", (req, res) => {
+  res.send("Server is up and running!");
+});
 
 // routes
 app.use('api/user' , UserRoute);

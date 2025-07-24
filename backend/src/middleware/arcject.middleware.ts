@@ -1,4 +1,3 @@
-import { NextFunction } from "express";
 import { aj } from "../configs/arject";
 
 // Arcjet middleware for rate limiting, bot protection, and security

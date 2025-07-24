@@ -1,11 +1,11 @@
-import Post from "../models/post.model.js";
-import User from "../models/user.model.js";
+import Post from "../models/post.model";
+import User from "../models/user.model";
 import { getAuth } from "@clerk/express";
-import Notification from "../models/notification.model.js";
-import Comment from "../models/comment.model.js";
-import AsyncHandler from "../utils/Asynchandler.js";
-import cloudinary from "../configs/cloudinary.js";
-import ApiResponse from "../utils/ApiResponse.js";
+import Notification from "../models/notification.model";
+import Comment from "../models/comment.model";
+import AsyncHandler from "../utils/Asynchandler";
+import cloudinary from "../configs/cloudinary";
+import ApiResponse from "../utils/ApiResponse";
 import ApiError from "../utils/ApiError";
 
 export const getPosts = AsyncHandler(async (req, res) => {
