@@ -4,9 +4,9 @@ import { getAuth } from "@clerk/express";
 import Notification from "../models/notification.model";
 import Comment from "../models/comment.model";
 import AsyncHandler from "../utils/Asynchandler";
-import cloudinary from "../configs/cloudinary";
 import ApiResponse from "../utils/ApiResponse";
 import ApiError from "../utils/ApiError";
+import { v2 as cloudinary } from "cloudinary";
 
 export const getPosts = AsyncHandler(async (req, res) => {
   try {
