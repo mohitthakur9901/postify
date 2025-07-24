@@ -31,20 +31,21 @@ app.use('api/post' , PostRoute);
 app.use('api/comment' , CommentRoute);
 app.use('api/notification' , NotificationRoute);
 
-async function startApp () {
-    connectDb().then(() => {
-    if (ENV.PORT !== 'production') {
-       app.listen(ENV.PORT|| 3000, () => {
-        
-        console.log(`server is running on http://localhost:${ENV.PORT}`);
-    })
+const startServer = async () => {
+  try {
+    await connectDb();
+
+    // listen for local development
+    if (ENV.NODE_ENV !== "production") {
+      app.listen(ENV.PORT, () => console.log("Server is up and running on PORT:", ENV.PORT));
     }
-}).catch((err) => {
-    console.log(err);
+  } catch (error : any) {
+    console.error("Failed to start server:", error.message);
     process.exit(1);
-});
-}
+  }
+};
 
-startApp();
+startServer();
 
-export default app
+// export for vercel
+export default app;
