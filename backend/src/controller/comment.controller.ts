@@ -1,11 +1,11 @@
 import { getAuth } from "@clerk/express";
-import Comment from "../models/comment.model.js";
-import Post from "../models/post.model.js";
-import User from "../models/user.model.js";
-import Notification from "../models/notification.model.js";
-import AsyncHandler from "../utils/Asynchandler.js";
-import ApiError from "../utils/ApiError.js";
-import ApiResponse from "../utils/ApiResponse.js";
+import Comment from "../models/comment.model";
+import Post from "../models/post.model";
+import User from "../models/user.model";
+import Notification from "../models/notification.model";
+import AsyncHandler from "../utils/Asynchandler";
+import ApiError from "../utils/ApiError";
+import ApiResponse from "../utils/ApiResponse";
 
 export const getComments = AsyncHandler(async (req, res) => {
   try {

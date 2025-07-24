@@ -1,5 +1,5 @@
 import arcjet, { tokenBucket, shield, detectBot } from "@arcjet/node";
-import { ENV } from "./env.js";
+import { ENV } from "./env";
 
 // initialize Arcjet with security rules
 export const aj = arcjet({

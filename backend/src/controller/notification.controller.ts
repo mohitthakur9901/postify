@@ -1,9 +1,10 @@
 import { getAuth } from "@clerk/express";
-import Notification from "../models/notification.model.js";
-import User from "../models/user.model.js";
-import AsyncHandler from "../utils/Asynchandler.js";
-import ApiResponse from "../utils/ApiResponse.js";
-import ApiError from "../utils/ApiError.js";
+import Notification from "../models/notification.model";
+import User from "../models/user.model";
+
+import ApiResponse from "../utils/ApiResponse";
+import ApiError from "../utils/ApiError";
+import AsyncHandler from "../utils/Asynchandler";
 
 export const getNotifications = AsyncHandler(async (req, res) => {
   try {
