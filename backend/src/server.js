@@ -16,7 +16,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(clerkMiddleware());
+app.use(clerkMiddleware({
+  publishableKey : ENV.CLERK_PUBLISHABLE_KEY,
+  secretKey: ENV.CLERK_SECRET_KEY
+}));
 app.use(arcjetMiddleware);
 
 app.get("/", (req, res) => res.send("Hello from server"));
