@@ -1,9 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import { useAuth } from '@clerk/clerk-expo';
 
-const API_BASE_URL = 'https://server-virid-one-37.vercel.app/api';
-
-// this will basically create an authenticated api, pass the token into our headers
+const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL;
 
 export const createApiClient = (getToken: () => Promise<string | null>): AxiosInstance => {
   const api = axios.create({ baseURL: API_BASE_URL });
@@ -11,7 +9,7 @@ export const createApiClient = (getToken: () => Promise<string | null>): AxiosIn
   api.interceptors.request.use(async (config) => {
     try {
       const token = await getToken();
-      console.log('Token being sent:', token);
+      // console.log('Token being sent:', token);
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
