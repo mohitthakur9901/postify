@@ -11,7 +11,7 @@ export const createApiClient = (getToken: () => Promise<string | null>): AxiosIn
   api.interceptors.request.use(async (config) => {
     try {
       const token = await getToken();
-
+      console.log('Token being sent:', token);
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
@@ -26,6 +26,7 @@ export const createApiClient = (getToken: () => Promise<string | null>): AxiosIn
 
 export const useApiClient = (): AxiosInstance => {
   const { getToken } = useAuth();
+
   return createApiClient(getToken);
 };
 
