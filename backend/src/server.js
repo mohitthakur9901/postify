@@ -9,18 +9,25 @@ import notificationRoutes from "./routes/notification.route.js";
 
 import { ENV } from "./config/env.js";
 import { connectDB } from "./config/db.js";
-import { arcjetMiddleware } from "./middleware/arcjet.middleware.js";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(
+  clerkMiddleware({
+    publishableKey: ENV.CLERK_PUBLISHABLE_KEY,
+    secretKey: ENV.CLERK_SECRET_KEY,
+  })
+);
 
-app.use(clerkMiddleware({
-  publishableKey : ENV.CLERK_PUBLISHABLE_KEY,
-  secretKey: ENV.CLERK_SECRET_KEY
-}));
-app.use(arcjetMiddleware);
+app.use((req, res, next) => {
+  console.log("Authorization header:", req.headers.authorization);
+  console.log("req.auth:", req.auth);
+  next();
+});
+
+// app.use(arcjetMiddleware);
 
 app.get("/", (req, res) => res.send("Hello from server"));
 
@@ -41,7 +48,9 @@ const startServer = async () => {
 
     // listen for local development
     if (ENV.NODE_ENV !== "production") {
-      app.listen(ENV.PORT, () => console.log("Server is up and running on PORT:", ENV.PORT));
+      app.listen(ENV.PORT, () =>
+        console.log("Server is up and running on PORT:", ENV.PORT)
+      );
     }
   } catch (error) {
     console.error("Failed to start server:", error.message);
