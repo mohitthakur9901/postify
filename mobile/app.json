@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "mobile",
+    "name": "twitter-clone",
     "slug": "mobile",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -16,7 +16,8 @@
         "foregroundImage": "./src/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.mohitxoxo.x_clone"
     },
     "web": {
       "bundler": "metro",
@@ -31,12 +32,20 @@
           "image": "./src/assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#ffffff",
+          "orientation": "portrait"
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "33b3861e-a83b-48b7-b86a-298301cb2399"
+      }
+    },
+    "owner": "mohitxoxo"
   }
 }

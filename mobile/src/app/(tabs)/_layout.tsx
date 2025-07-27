@@ -3,6 +3,7 @@ import { Feather } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAuth } from "@clerk/clerk-expo";
 
+
 const TabsLayout = () => {
   const insets = useSafeAreaInsets();
 
@@ -30,7 +31,7 @@ const TabsLayout = () => {
         options={{
           title: "",
           tabBarIcon: ({ color, size }) => <Feather name="home" size={size} color={color} />,
-        
+
         }}
       />
       <Tabs.Screen

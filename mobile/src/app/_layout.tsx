@@ -8,9 +8,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 export default function RootLayout() {
-
+  // console.log( "key" +process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY);
+  
+  
   return (
-    <ClerkProvider tokenCache={tokenCache}>
+    <ClerkProvider publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY} tokenCache={tokenCache}>
       <QueryClientProvider client={queryClient}>
         <Stack screenOptions={{ headerShown: false }} >
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />

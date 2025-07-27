@@ -27,7 +27,8 @@ export const createComment = asyncHandler(async (req, res) => {
   const user = await User.findOne({ clerkId: userId });
   const post = await Post.findById(postId);
 
-  if (!user || !post) return res.status(404).json({ error: "User or post not found" });
+  if (!user || !post)
+    return res.status(404).json({ error: "User or post not found" });
 
   const comment = await Comment.create({
     user: user._id,
@@ -66,7 +67,9 @@ export const deleteComment = asyncHandler(async (req, res) => {
   }
 
   if (comment.user.toString() !== user._id.toString()) {
-    return res.status(403).json({ error: "You can only delete your own comments" });
+    return res
+      .status(403)
+      .json({ error: "You can only delete your own comments" });
   }
 
   // remove comment from post
@@ -78,4 +81,27 @@ export const deleteComment = asyncHandler(async (req, res) => {
   await Comment.findByIdAndDelete(commentId);
 
   res.status(200).json({ message: "Comment deleted successfully" });
+});
+
+export const likeComment = asyncHandler(async (req, res) => {
+  const { userId } = getAuth(req); // Clerk user
+  const { commentId } = req.params;
+
+  const user = await User.findOne({ clerkId: userId });
+  const comment = await Comment.findById(commentId);
+
+  if (!user || !comment) {
+    return res.status(404).json({ error: "User or comment not found" });
+  }
+
+  // Check if already liked
+  if (comment.likes.includes(user._id)) {
+    return res.status(400).json({ error: "You already liked this comment." });
+  }
+
+  // Like it
+  comment.likes.push(user._id);
+  await comment.save();
+
+  res.status(200).json({ message: "Comment liked successfully" });
 });
