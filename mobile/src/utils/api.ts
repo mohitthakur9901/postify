@@ -46,4 +46,6 @@ export const postApi = {
 export const commentApi = {
   createComment: (api: AxiosInstance, postId: string, content: string) =>
     api.post(`/comments/post/${postId}`, { content }),
+
+  likeComment: (api: AxiosInstance, commentId: string) => api.post(`/comments/${commentId}/like`),
 };

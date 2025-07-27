@@ -84,26 +84,24 @@ export const deleteComment = asyncHandler(async (req, res) => {
 });
 
 export const likeComment = asyncHandler(async (req, res) => {
-  const { userId } = getAuth(req);
+  const { userId } = getAuth(req); // Clerk user
   const { commentId } = req.params;
 
   const user = await User.findOne({ clerkId: userId });
   const comment = await Comment.findById(commentId);
 
-  if (!user || !comment)
+  if (!user || !comment) {
     return res.status(404).json({ error: "User or comment not found" });
-
-  // check if user has already liked the comment
-  if (comment.likes.includes(user._id)) {
-    return res
-      .status(400)
-      .json({ error: "You have already liked this comment" });
   }
 
-  // like the comment
-  await Comment.findByIdAndUpdate(commentId, {
-    $push: { likes: user._id },
-  });
+  // Check if already liked
+  if (comment.likes.includes(user._id)) {
+    return res.status(400).json({ error: "You already liked this comment." });
+  }
+
+  // Like it
+  comment.likes.push(user._id);
+  await comment.save();
 
   res.status(200).json({ message: "Comment liked successfully" });
 });

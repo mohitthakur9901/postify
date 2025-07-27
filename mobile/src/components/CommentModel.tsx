@@ -10,8 +10,10 @@ import {
     ActivityIndicator,
 } from "react-native";
 import { Post } from "../types";
-import { useComments } from "../hooks/useComment";
+import { useComments, } from "../hooks/useComment";
 import { useCurrentUser } from "../hooks/useCurrentUser";
+import { AntDesign, Feather } from "@expo/vector-icons";
+import { formatNumber } from "../utils/formatters";
 
 interface CommentsModalProps {
     selectedPost: Post;
@@ -19,7 +21,7 @@ interface CommentsModalProps {
 }
 
 const CommentsModal = ({ selectedPost, onClose }: CommentsModalProps) => {
-    const { commentText, setCommentText, createComment, isCreatingComment } = useComments();
+    const { commentText, setCommentText, createComment, isCreatingComment, createCommentLike } = useComments();
     const { currentUser } = useCurrentUser();
 
     const handleClose = () => {
@@ -91,6 +93,23 @@ const CommentsModal = ({ selectedPost, onClose }: CommentsModalProps) => {
                                     </View>
 
                                     <Text className="text-gray-900 text-base leading-5 mb-2">{comment.content}</Text>
+                                    <TouchableOpacity
+                                        className="flex-row items-center"
+                                        onPress={() => createCommentLike(comment._id)}
+                                    >
+                                        {comment.likes.includes(currentUser._id) ? (
+                                            <AntDesign name="heart" size={18} color="#E0245E" />
+                                        ) : (
+                                            <Feather name="heart" size={18} color="#657786" />
+                                        )}
+
+                                        <Text
+                                            className={`text-sm ml-2 ${comment.likes.includes(currentUser._id) ? "text-red-500" : "text-gray-500"
+                                                }`}
+                                        >
+                                            {formatNumber(comment.likes.length)}
+                                        </Text>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
                         </View>
@@ -133,6 +152,7 @@ const CommentsModal = ({ selectedPost, onClose }: CommentsModalProps) => {
                                         </Text>
                                     )}
                                 </TouchableOpacity>
+
                             </View>
                         </View>
                     </View>
